@@ -1,0 +1,331 @@
+:root {
+  --color-primary: #2563EB;
+  --color-secondary: #F59E0B;
+  --color-error: #EF4444;
+  --color-bg: #f9fafb;
+  --color-surface: #ffffff;
+  --color-text: #111827;
+
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 8px 24px rgba(37,99,235,0.10);
+  --shadow-soft: 0 6px 18px rgba(0,0,0,0.06);
+  --gradient-header: linear-gradient(180deg, rgba(37,99,235,0.08), rgba(249,250,251,1));
+}
+
+* { box-sizing: border-box; }
+
+body, html, #root {
+  height: 100%;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.ocean-professional {
+  --panel-gap: 16px;
+}
+
+.nc-app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.nc-topnav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: saturate(180%) blur(6px);
+  border-bottom: 1px solid rgba(17,24,39,0.06);
+}
+
+.nc-topnav-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nc-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nc-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: conic-gradient(from 180deg at 50% 50%, rgba(37,99,235,0.5), rgba(245,158,11,0.5));
+  box-shadow: inset 0 1px 3px rgba(255,255,255,0.4);
+}
+
+.nc-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.nc-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.nc-search {
+  background: #f3f4f6;
+  border-radius: 999px;
+  padding: 8px 14px;
+  border: 1px solid rgba(0,0,0,0.06);
+  min-width: 220px;
+  outline: none;
+  transition: all .2s ease;
+}
+.nc-search:focus {
+  background: #fff;
+  border-color: rgba(37,99,235,0.35);
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.1);
+}
+
+.nc-button {
+  background: var(--color-primary);
+  color: white;
+  border: 0;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+.nc-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(37,99,235,0.18);
+  opacity: .95;
+}
+
+.nc-main {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--panel-gap);
+  padding: 18px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.nc-sidebar {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+.nc-content {
+  min-height: 70vh;
+}
+
+.nc-panel {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: var(--panel-gap);
+}
+
+.nc-panel-left, .nc-panel-right {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+.nc-panel-header {
+  padding: 14px 16px;
+  background: var(--gradient-header);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nc-empty {
+  padding: 24px;
+  text-align: center;
+  color: #6b7280;
+}
+
+/* Calendar */
+.cal-header {
+  padding: 14px 16px;
+  background: var(--gradient-header);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cal-grid {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.cal-weekday {
+  text-align: center;
+  font-size: 12px;
+  color: #6b7280;
+  padding: 6px 0;
+}
+
+.cal-cell {
+  background: #f9fafb;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 8px;
+  min-height: 60px;
+  padding: 6px;
+  cursor: pointer;
+  transition: all .15s ease;
+  position: relative;
+}
+.cal-cell:hover {
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.cal-cell.outside {
+  background: #f3f4f6;
+  color: #9ca3af;
+}
+.cal-cell .date {
+  font-size: 12px;
+  font-weight: 600;
+}
+.cal-cell .badge {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  background: rgba(37,99,235,0.15);
+  color: #1e3a8a;
+  border-radius: 999px;
+  font-size: 11px;
+  padding: 2px 6px;
+}
+.cal-cell.selected {
+  outline: 2px solid rgba(37,99,235,0.6);
+  background: #fff;
+}
+
+/* Notes List */
+.notes-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.notes-list-body {
+  padding: 8px;
+  display: grid;
+  gap: 8px;
+  max-height: 70vh;
+  overflow: auto;
+}
+.note-card {
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 10px;
+  padding: 10px;
+  background: #fff;
+  cursor: pointer;
+  transition: all .12s ease;
+}
+.note-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+.note-card.active {
+  border-color: rgba(37,99,235,0.45);
+  background: linear-gradient(180deg, rgba(37,99,235,0.05), #fff);
+}
+.note-title {
+  font-weight: 700;
+  font-size: 14px;
+}
+.note-snippet {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+.note-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+/* Editor */
+.editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.editor-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.editor input.title-input {
+  font-size: 18px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.1);
+  outline: none;
+}
+.editor textarea.content-input {
+  min-height: 260px;
+  resize: vertical;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.1);
+  outline: none;
+}
+.editor .row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.editor .muted {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(245,158,11,0.12);
+  color: #7c2d12;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.danger {
+  background: var(--color-error);
+  box-shadow: 0 8px 24px rgba(239,68,68,0.25);
+}
+.danger:hover { opacity: .95; }
+
+@media (max-width: 1024px) {
+  .nc-main {
+    grid-template-columns: 1fr;
+  }
+  .nc-panel {
+    grid-template-columns: 1fr;
+  }
+}

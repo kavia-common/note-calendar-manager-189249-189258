@@ -1,82 +1,90 @@
-# Lightweight React Template for KAVIA
+# Notes + Calendar Frontend (Ocean Professional)
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+A responsive React app providing a split-view notes manager with an integrated monthly calendar.
 
 ## Features
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+- Ocean Professional theme: blue primary, amber accents, rounded corners, soft shadows, gradient headers.
+- Top navigation bar with brand, search, and “New Note”.
+- Left sidebar calendar with month navigation and per-day note counts.
+- Right main area:
+  - Notes list filtered by the selected date and search query.
+  - Note editor with autosave on blur, date picker, tags, and delete.
+- CRUD: Create, read, update, delete notes.
+- Local persistence via localStorage:
+  - Keys: `nc_notes`, `nc_selected_date`
+- Keyboard: Cmd/Ctrl + N to create a new note.
+- Graceful empty states and responsive layout.
+- No backend required. Optional API mode documented below.
 
 ## Getting Started
 
-In the project directory, you can run:
+- Start: `npm start`
+- Build: `npm run build`
+- Test: `npm test`
 
-### `npm start`
+Opens at http://localhost:3000.
 
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Data Model
 
-### `npm test`
-
-Launches the test runner in interactive watch mode.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-## Customization
-
-### Colors
-
-The main brand colors are defined as CSS variables in `src/App.css`:
-
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
+```
+{
+  id: string,
+  title: string,
+  content: string,
+  date: 'YYYY-MM-DD',
+  tags?: string[],
+  createdAt: ISOString,
+  updatedAt: ISOString
 }
 ```
 
-### Components
+## Environment Variables
 
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
+This project reads the following if present:
 
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
+- `REACT_APP_API_BASE`: If set, you can extend `src/context/NotesContext.js` to call your backend instead of localStorage. The current code provides a `maybeCallApi` helper and in-place comments where to add calls.
+- `REACT_APP_NODE_ENV`: When set to `development`, additional debug logging is enabled.
 
-## Learn More
+No variables are required to run locally.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Switch to API mode (later)
 
-### Code Splitting
+1. Set `REACT_APP_API_BASE=http://localhost:4000` (example).
+2. In `src/context/NotesContext.js`, replace the local state operations with `fetch` calls in `createNote`, `updateNote`, and `deleteNote`. The `maybeCallApi` helper already handles base URL and JSON encoding.
+3. Ensure your backend exposes compatible endpoints:
+   - `GET /notes?date=YYYY-MM-DD`
+   - `POST /notes`
+   - `PUT /notes/:id`
+   - `DELETE /notes/:id`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Until then, the app uses localStorage with seed demo data.
 
-### Analyzing the Bundle Size
+## Styling
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Main styles in `src/theme.css`.
+- Minimal base in `src/App.css`.
+- Colors:
+  - primary: `#2563EB`
+  - secondary/success: `#F59E0B`
+  - error: `#EF4444`
+  - background: `#f9fafb`
+  - surface: `#ffffff`
+  - text: `#111827`
 
-### Making a Progressive Web App
+## File Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- `src/context/NotesContext.js` — app state and persistence
+- `src/components/TopNav.js` — top navigation
+- `src/components/CalendarSidebar.js` — calendar with month grid
+- `src/components/NotesList.js` — list of notes for selected date
+- `src/components/NoteEditor.js` — editor view (autosave on blur)
+- `src/utils/date.js` — date helpers and calendar matrix
+- `src/utils/storage.js` — localStorage helpers and seed data
+- `src/App.js` — app shell wiring and layout
+- `src/theme.css` — Ocean Professional theme
 
-### Advanced Configuration
+## Accessibility
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- ARIA labels on navigation and regions
+- High-contrast text and focus states on inputs
