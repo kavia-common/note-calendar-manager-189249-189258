@@ -6,6 +6,7 @@ import { formatDateISO } from '../utils/date';
 export default function NoteEditor({ note, selectedDate, onNoNotes }) {
   /**
    * Editor for the currently active note. Autosaves on blur.
+   * Visual polish: mount/unmount fade via CSS classes on container.
    */
   const { updateNote, deleteNote } = useNotes();
   const [local, setLocal] = useState(() => note || null);
@@ -41,7 +42,7 @@ export default function NoteEditor({ note, selectedDate, onNoNotes }) {
   const dateValue = useMemo(() => formatDateISO(local?.date || selectedDate), [local?.date, selectedDate]);
 
   return (
-    <div className="editor" role="region" aria-label="Note editor">
+    <div className="editor editor-animate-enter editor-animate-enter-active" role="region" aria-label="Note editor">
       <div className="nc-panel-header">
         <div style={{ fontWeight: 700 }}>{local ? 'Edit Note' : 'No note selected'}</div>
         {local && (

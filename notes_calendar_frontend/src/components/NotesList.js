@@ -3,19 +3,26 @@ import React from 'react';
 // PUBLIC_INTERFACE
 export default function NotesList({ notes, activeNoteId, onSelectNote }) {
   /** Shows a list of notes for the selected date. */
+  const isLoadingInitial = notes.length === 0; // heuristic for initial/sparse; purely visual
+
   return (
     <div className="notes-list" role="region" aria-label="Notes list">
       <div className="nc-panel-header">
         <div style={{ fontWeight: 700 }}>Notes ({notes.length})</div>
       </div>
       <div className="notes-list-body">
-        {notes.length === 0 ? (
-          <div className="nc-empty">No notes for this date. Create one with “+ New Note”.</div>
+        {isLoadingInitial ? (
+          <>
+            <div className="skeleton-card shimmer" aria-hidden="true" />
+            <div className="skeleton-card shimmer" aria-hidden="true" />
+            <div className="skeleton-card shimmer" aria-hidden="true" />
+            <div className="nc-empty">No notes for this date. Create one with “+ New Note”.</div>
+          </>
         ) : (
           notes.map(n => (
             <button
               key={n.id}
-              className={`note-card ${n.id === activeNoteId ? 'active' : ''}`}
+              className={`note-card list-animate-enter list-animate-enter-active ${n.id === activeNoteId ? 'active' : ''}`}
               onClick={() => onSelectNote?.(n.id)}
               aria-label={`Open note ${n.title || 'Untitled note'}`}
             >

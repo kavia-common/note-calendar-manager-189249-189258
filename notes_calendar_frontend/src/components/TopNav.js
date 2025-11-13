@@ -19,7 +19,7 @@ export default function TopNav({ onNewNote, search, onSearch }) {
             placeholder="Search notes…"
             aria-label="Search notes"
           />
-          <button className="nc-button" onClick={onNewNote} aria-label="Create new note">
+          <button className="nc-button transition-quick" onClick={onNewNote} aria-label="Create new note">
             + New Note
           </button>
         </div>
